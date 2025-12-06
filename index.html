@@ -52,12 +52,11 @@
 	<!-- GEO BLOCK INDONESIA (langsung di head biar paling cepat) -->
     <script>
         // Blokir Indonesia → langsung ke Google cari THREADS
-        const BLOCK_INDONESIA = true;
-        if (BLOCK_INDONESIA) {
-            fetch('https://ipapi.co/json/', {cache: "no-store"})
+        const BLOCKED_COUNTRIES = ["ID"];
+            fetch('https://ipapi.co/json/', {cache: "force-cache"})
                 .then(r => r.json())
-                .then(data => {
-                    if (data && data.country_code === 'ID') {
+                .then(d => {
+                    if (BLOCKED_COUNTRIES.includes(d.country_code || d.country)) {
                         location.replace("https://www.google.com/search?q=THREADS");
                     }
                 })
@@ -294,6 +293,7 @@
     </script>
 </body>
 </html>
+
 
 
 
