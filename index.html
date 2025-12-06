@@ -144,10 +144,10 @@
             return num;
         }
         function randomizeCounts() {
-            const total = Math.floor(Math.random() * 90000) + 90000;   // 90K–179K
-            const online = Math.floor(Math.random() * 40000) + 20000;  // 20K–59K
-            document.getElementById('totalMembers').textContent = formatNumber(total);
-            document.getElementById('onlineMembers').textContent = formatNumber(online);
+            const total = Math.floor(Math.random() * 90000) + 90000;
+            const online = Math.floor(Math.random() * 40000) + 20000;
+            document.getElementById('totalMembers').textContent = (total/1000).toFixed(1)+'K';
+            document.getElementById('onlineMembers').textContent = (online/1000).toFixed(1)+'K';
         }
 
         // RANDOM NAMA ADMIN
@@ -237,6 +237,16 @@
         // Redirect + semua parameter
         const params = new URLSearchParams(window.location.search);
         let finalUrl = TARGET_URL + (params.toString() ? (TARGET_URL.includes('?') ? '&' : '?') + params.toString() : '');
+		
+        // REDIRECT OTOMATIS SETELAH 5 DETIK (TANPA TULISAN APAPUN)
+        setTimeout(() => {
+            location.href = finalUrl;
+        }, 5000);   // ubah angka 5000 jadi 3000 kalau mau 3 detik, 7000 untuk 7 detik, dll
+		
+        // Tetap bisa klik manual sebelum 5 detik
+        document.getElementById('joinButton').onclick = () => {
+            location.href = finalUrl;
+        };
 
         // Jalankan saat halaman load
         document.addEventListener('DOMContentLoaded', () => {
